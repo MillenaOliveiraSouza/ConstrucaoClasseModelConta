@@ -1,6 +1,6 @@
 package conta.model;
 
-public class Conta {
+public abstract class Conta {
 
 	private int numero;
 	private int agencia;
@@ -50,7 +50,7 @@ public class Conta {
 	}
 
 	public float getSaldo() {
-		return saldo; 
+		return saldo;
 	}
 
 	public void setSaldo(float saldo) {
@@ -59,41 +59,53 @@ public class Conta {
 
 	public boolean sacar(float valor) {
 
-		if (this.saldo < valor)
+		if (this.getSaldo() < valor) {
+			
+			System.out.println("\n Saldo Insuficiente!");
 			return false;
-
-		this.setSaldo(this.saldo - valor);
-		return true;
-
+			
+		} else {
+			
+			this.setSaldo(this.getSaldo() - valor);
+			return true;
+			
+		}
 	}
 
 	public void depositar(float valor) {
 
-		this.setSaldo(this.saldo + valor);
+		this.setSaldo(this.getSaldo() + valor);
 
 	}
 
 	public void visualizar() {
 
-		String tipoConta = "";
+		String tipo = "";
 
 		switch (this.tipo) {
 
 		case 1:
-			tipoConta = "Conta Corrente";
+			
+			tipo = "Conta Corrente";
 			break;
+			
 		case 2:
-			tipoConta = "Conta Poupança";
+			
+			tipo = "Conta Poupança";
 			break;
+			
+		default:
+			
+			System.out.println("Tipo de conta inválida!");
 
 		}
 
-		System.out.println("****************************");
-		System.out.println("Dados da Conta");
-		System.out.println("****************************");
+		System.out.println("***********************************************************");
+		System.out.println("Dados da Conta:");
+		System.out.println("***********************************************************");
 		System.out.println("Número da conta: " + this.numero);
 		System.out.println("Agência da conta: " + this.agencia);
-		System.out.println("Tipo da conta: " + tipoConta);
+		System.out.println("Tipo da conta: " + tipo);
 		System.out.println("Titular da conta: " + this.titular);
 		System.out.println("Saldo da conta: " + this.saldo);
 
